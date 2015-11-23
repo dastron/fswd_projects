@@ -2,7 +2,7 @@
 
 Complie a list of movies and track your progress as you watch them.
 
-* A couple of key points, when running library.py, please make sure that you have a valid internet connect, Bad Tomatoes will pull the latest data from teh interwebs and search for a trailer for your movie library. Also give it a second, there are a lot of queries happening. 
+* A couple of key points, when running MovieLibrary.py, please make sure that you have a valid internet connect, Bad Tomatoes will pull the latest data from teh interwebs and search for a trailer for your movie library. Also give it a second, there are a lot of queries happening. 
 
 If you want to increase the speed please remove items from myMovies.
 
