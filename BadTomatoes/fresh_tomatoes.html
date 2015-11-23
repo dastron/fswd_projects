@@ -1,0 +1,610 @@
+
+<head>
+    <meta charset="utf-8">
+    <title>Fresh Tomatoes!</title>
+
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <style type="text/css" media="screen">
+        body {
+            padding-top: 80px;
+        }
+        #trailer .modal-dialog {
+            margin-top: 200px;
+            width: 960px;
+            height: 500px;
+
+        }
+        .hanging-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            z-index: 9001;
+        }
+        #trailer-video {
+            width: 100%;
+            height: 100%;
+        }
+        .movie-tile {
+            margin-bottom: 20px;
+            padding-top: 20px;
+
+        }
+        .movie-tile:hover {
+            background-color: #EEE;
+            cursor: pointer;
+        }
+        .scale-media {
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        .scale-media iframe {
+            border: none;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            background-color: white;
+        }
+        .flip-container {
+            perspective: 1000;
+
+        }
+            /* flip the pane when hovered */
+        .flip-container:hover .flipper, .flip-container.hover .flipper {
+            transform: rotateY(180deg);
+        }
+
+        .flip-container, .front, .back {
+
+        }
+
+        /* flip speed goes here */
+        .flipper {
+            /*transition-delay: 0.4s;*/
+            transition: 1.0s;
+            transform-style: preserve-3d;
+
+            position: relative;
+        }
+
+        /* hide back of pane during swap */
+        .front, .back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+
+
+
+
+        }
+
+        .watched{
+        opacity:0.5;
+        }
+
+        /* front pane, placed above back */
+        .front {
+            z-index: 2;
+            /* for firefox 31 */
+            transform: rotateY(0deg);
+
+        }
+
+        /* back, initially hidden pane */
+        .back {
+            position: absolute;
+            top: 0;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+
+            transform: rotateY(180deg);
+        }
+
+        .play-glyp{
+
+
+            position: absolute;
+            margin-top: -60px;
+            top: 50%;
+            margin-left: -60px;
+            left: 50%;
+            font-color:white;
+            font-size: 120px;
+
+        }
+
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        // Pause the video when the modal is closed
+        $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
+            // Remove the src so the player itself gets removed, as this is the only
+            // reliable way to ensure the video stops playing in IE
+            $("#trailer-video-container").empty();
+        });
+
+        // Remove Movie from Screen
+        $(document).on('click', '.remover', function (event) {
+            var tileId = $(this).attr('data-imdb');
+            console.log(tileId);
+            $("#"+tileId).remove();
+        });
+
+        //Add Class to Watched Film
+        $(document).on('click', '.btn-watch', function (event) {
+            var tileId = $(this).attr('data-imdb');
+            console.log(tileId);
+            $("#"+tileId).addClass("watched");
+        });
+
+        // Start playing the video whenever the trailer modal is opened
+        $(document).on('click', '.poster', function (event) {
+            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
+            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
+            $("#trailer-video-container").empty().append($("<iframe></iframe>", {
+              'id': 'trailer-video',
+              'type': 'text-html',
+              'src': sourceUrl,
+              'frameborder': 0
+            }));
+        });
+        // Animate in the movies when the page loads
+        $(document).ready(function () {
+          $('.movie-tile').hide().first().show("fast", function showNext() {
+            $(this).next("div").show("fast", showNext);
+          });
+        });
+    </script>
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <!-- Trailer Video Modal -->
+    <div class="modal" id="trailer">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+
+            <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          </a>
+          <div class="scale-media" id="trailer-video-container">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Page Content -->
+    <div class="container">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Fresh Internet Based Tomatoes & Movie Trailers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      
+<div id="tt0114709" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="KYz2wyBy3kc" data-toggle="modal" data-target="#trailer">
+        <h3>Toy Story (1995)</h3>
+        <p style="">A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants hi...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="KYz2wyBy3kc" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Toy Story (1995)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0114709">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0114709">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0133093" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTkxNDYxOTA4M15BMl5BanBnXkFtZTgwNTk0NzQxMTE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="vKQi3bBA1y8" data-toggle="modal" data-target="#trailer">
+        <h3>The Matrix (1999)</h3>
+        <p style="">A computer hacker learns from mysterious rebels about the true nature of his reality and h...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="vKQi3bBA1y8" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTkxNDYxOTA4M15BMl5BanBnXkFtZTgwNTk0NzQxMTE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>The Matrix (1999)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0133093">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0133093">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0110912" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="ewlwcEBTvcg" data-toggle="modal" data-target="#trailer">
+        <h3>Pulp Fiction (1994)</h3>
+        <p style="">The lives of two mob hit men, a boxer, a gangster's wife, and a pair of diner bandits inte...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="ewlwcEBTvcg" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Pulp Fiction (1994)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0110912">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0110912">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0268978" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTQ4MDI2MzkwMl5BMl5BanBnXkFtZTYwMjk0NTA5._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="9wZM7CQY130" data-toggle="modal" data-target="#trailer">
+        <h3>A Beautiful Mind (2001)</h3>
+        <p style="">After a brilliant but asocial mathematician, John Nash, accepts secret work in cryptograph...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="9wZM7CQY130" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTQ4MDI2MzkwMl5BMl5BanBnXkFtZTYwMjk0NTA5._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>A Beautiful Mind (2001)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0268978">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0268978">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0088763" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMjA5NTYzMDMyM15BMl5BanBnXkFtZTgwNjU3NDU2MTE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="qvsgGtivCgs" data-toggle="modal" data-target="#trailer">
+        <h3>Back to the Future (1985)</h3>
+        <p style="">A young man is accidentally sent 30 years into the past in a time-traveling DeLorean inven...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="qvsgGtivCgs" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMjA5NTYzMDMyM15BMl5BanBnXkFtZTgwNjU3NDU2MTE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Back to the Future (1985)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0088763">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0088763">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt3659388" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="2p7bgMxewxA" data-toggle="modal" data-target="#trailer">
+        <h3>The Martian (2015)</h3>
+        <p style="">During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce sto...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="2p7bgMxewxA" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>The Martian (2015)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt3659388">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt3659388">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0068646" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMjEyMjcyNDI4MF5BMl5BanBnXkFtZTcwMDA5Mzg3OA@@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="fB_8VCwXydM" data-toggle="modal" data-target="#trailer">
+        <h3>The Godfather (1972)</h3>
+        <p style="">The aging patriarch of an organized crime dynasty transfers control of his clandestine emp...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="fB_8VCwXydM" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMjEyMjcyNDI4MF5BMl5BanBnXkFtZTcwMDA5Mzg3OA@@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>The Godfather (1972)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0068646">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0068646">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0468569" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="EXeTwQWrcwY" data-toggle="modal" data-target="#trailer">
+        <h3>The Dark Knight (2008)</h3>
+        <p style="">When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, the cap...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="EXeTwQWrcwY" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>The Dark Knight (2008)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0468569">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0468569">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0108052" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMzMwMTM4MDU2N15BMl5BanBnXkFtZTgwMzQ0MjMxMDE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="gG22XNhtnoY" data-toggle="modal" data-target="#trailer">
+        <h3>Schindler's List (1993)</h3>
+        <p style="">In Poland during World War II, Oskar Schindler gradually becomes concerned for his Jewish ...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="gG22XNhtnoY" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMzMwMTM4MDU2N15BMl5BanBnXkFtZTgwMzQ0MjMxMDE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Schindler's List (1993)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0108052">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0108052">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0796366" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMjE5NDQ5OTE4Ml5BMl5BanBnXkFtZTcwOTE3NDIzMw@@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="pKFUZ10Wmbw" data-toggle="modal" data-target="#trailer">
+        <h3>Star Trek (2009)</h3>
+        <p style="">The brash James T. Kirk tries to live up to his father's legacy with Mr. Spock keeping him...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="pKFUZ10Wmbw" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMjE5NDQ5OTE4Ml5BMl5BanBnXkFtZTcwOTE3NDIzMw@@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Star Trek (2009)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0796366">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0796366">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt2039393" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMjA5MjIzODE3N15BMl5BanBnXkFtZTgwNzUwNzYwMzE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="Y5gPQXbFs9Y" data-toggle="modal" data-target="#trailer">
+        <h3>The Gambler (2014)</h3>
+        <p style="">Lit professor and gambler Jim Bennett's debt causes him to borrow money from his mother an...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="Y5gPQXbFs9Y" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMjA5MjIzODE3N15BMl5BanBnXkFtZTgwNzUwNzYwMzE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>The Gambler (2014)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt2039393">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt2039393">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0062622" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BNDYyMDgxNDQ5Nl5BMl5BanBnXkFtZTcwMjc1ODg3OA@@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="DX1gTOEerRE" data-toggle="modal" data-target="#trailer">
+        <h3>2001: A Space Odyssey (1968)</h3>
+        <p style="">Humanity finds a mysterious, obviously artificial object buried beneath the Lunar surface ...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="DX1gTOEerRE" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BNDYyMDgxNDQ5Nl5BMl5BanBnXkFtZTcwMjc1ODg3OA@@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>2001: A Space Odyssey (1968)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0062622">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0062622">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0361748" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMjIzMDI4MTUzOV5BMl5BanBnXkFtZTcwNDY3NjA3Mg@@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="KnrRy6kSFF0" data-toggle="modal" data-target="#trailer">
+        <h3>Inglourious Basterds (2009)</h3>
+        <p style="">In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="KnrRy6kSFF0" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMjIzMDI4MTUzOV5BMl5BanBnXkFtZTcwNDY3NjA3Mg@@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Inglourious Basterds (2009)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0361748">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0361748">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0116282" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTgxNzY3MzUxOV5BMl5BanBnXkFtZTcwMDA0NjMyNA@@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="h2tY82z3xXU" data-toggle="modal" data-target="#trailer">
+        <h3>Fargo (1996)</h3>
+        <p style="">Jerry Lundegaard's inept crime falls apart due to his and his henchmen's bungling and the ...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="h2tY82z3xXU" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTgxNzY3MzUxOV5BMl5BanBnXkFtZTcwMDA0NjMyNA@@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Fargo (1996)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0116282">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0116282">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0401792" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTI2NjUyMDUyMV5BMl5BanBnXkFtZTcwMzU0OTkyMQ@@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="T2Dj6ktPU5c" data-toggle="modal" data-target="#trailer">
+        <h3>Sin City (2005)</h3>
+        <p style="">A film that explores the dark and miserable town, Basin City, and tells the story of three...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="T2Dj6ktPU5c" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTI2NjUyMDUyMV5BMl5BanBnXkFtZTcwMzU0OTkyMQ@@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Sin City (2005)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0401792">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0401792">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0107290" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMjM2MDgxMDg0Nl5BMl5BanBnXkFtZTgwNTM2OTM5NDE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="lc0UehYemQA" data-toggle="modal" data-target="#trailer">
+        <h3>Jurassic Park (1993)</h3>
+        <p style="">During a preview tour, a theme park suffers a major power breakdown that allows its cloned...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="lc0UehYemQA" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMjM2MDgxMDg0Nl5BMl5BanBnXkFtZTgwNTM2OTM5NDE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Jurassic Park (1993)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0107290">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0107290">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0107048" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTU0MzQyNTExMV5BMl5BanBnXkFtZTgwMjA0Njk1MDE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="wE8nNUASSCo" data-toggle="modal" data-target="#trailer">
+        <h3>Groundhog Day (1993)</h3>
+        <p style="">A weatherman finds himself living the same day over and over again....</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="wE8nNUASSCo" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BMTU0MzQyNTExMV5BMl5BanBnXkFtZTgwMjA0Njk1MDE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Groundhog Day (1993)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0107048">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0107048">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="tt0073195" class="col-md-6 col-lg-4 movie-tile text-center">
+   <div class="flip-container">
+   <div class="flipper">
+    <div class="front">
+        <img src="http://ia.media-imdb.com/images/M/MV5BNDcxODkyMjY4MF5BMl5BanBnXkFtZTgwOTk5NTc5MDE@._V1_SX300.jpg" class="poster" width="220" height="342" data-trailer-youtube-id="U1fu_sA7XhE" data-toggle="modal" data-target="#trailer">
+        <h3>Jaws (1975)</h3>
+        <p style="">When a gigantic great white shark begins to menace the small island community of Amity, a ...</p>
+    </div>
+    <div class="back">
+        <div style="width:100%;">
+        <div class="poster" style="position:relative;" data-trailer-youtube-id="U1fu_sA7XhE" data-toggle="modal" data-target="#trailer">
+         <img src="http://ia.media-imdb.com/images/M/MV5BNDcxODkyMjY4MF5BMl5BanBnXkFtZTgwOTk5NTc5MDE@._V1_SX300.jpg"  width="220" height="342">
+         <span class="glyphicon glyphicon-play-circle play-glyp"> </span>
+         </div>
+         <h3>Jaws (1975)</h3>
+         <span>  <button type="button" class="btn btn-default remover" data-imdb="tt0073195">Remove from List</button>
+  <button type="button" class="btn btn-default btn-watch" data-imdb="tt0073195">Mark as Watched</button> </span>
+         </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>
