@@ -6,6 +6,12 @@ Complie a list of movies and track your progress as you watch them.
 
 If you want to increase the speed please remove items from myMovies.
 
+# Setup!
+It's not working!?!?!?!! Wait! You need a Google Api with youtube enabled!
+
+ Read here to get setup. Then replace "api_key = XXXX" with your key!
+
+ https://developers.google.com/youtube/v3/getting-started
 
 ## Added Features:
 
