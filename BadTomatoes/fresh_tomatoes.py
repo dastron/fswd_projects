@@ -3,7 +3,22 @@ import requests
 import os
 import re
 import urllib
+import ConfigParser
 
+config = ConfigParser.RawConfigParser()
+config.read('config.cfg')
+
+
+#It's not working!?!?!?!! Wait! You need a Google Api with youtube enabled!
+#
+# Read here to get setup. Then replace
+# api_key = XXXX
+# With your key
+#
+# https://developers.google.com/youtube/v3/getting-started
+#
+
+api_key = config.get('Keys', 'gapis')
 
 import json
 # Styles and scripting for the page
@@ -303,9 +318,9 @@ class Movie:
         search = urllib.quote_plus(searchString)
 
         try:
-            rT = requests.get("https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance&q="+search+"&key=AIzaSyBnq5nnqugbNOgg8aO_KTkXOqRPsmCX9Bc")
+            rT = requests.get("https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance&q="+search+"&key="+api_key)
         except rT.exceptions.ConnectionError as e:
-            print "These aren't the domains we're looking for."
+            print "Domain Issues! Please check your internet!"
 
         #Process JSON from Youtube
         returnData = json.loads(rT.text)
